@@ -1,6 +1,9 @@
 name: 'spin trigger pipeline'
 description: 'This action sends a POST request to a configured webhook in spinnaker for CD services'
 author: 'armory-io'
+branding:
+  icon: 'arrow-right-circle'
+  color: 'blue'
 inputs:
   baseUrl:
     required: true
