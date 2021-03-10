@@ -41,13 +41,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(2186));
 const axios_1 = __importDefault(__webpack_require__(6545));
+const https_1 = __importDefault(__webpack_require__(7211));
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook';
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    let baseURL, source, secret, serviceName, serviceImage;
+    let baseURL, source, serviceName, serviceImage, secret = undefined, httpsAgent = undefined;
     try {
         baseURL = core.getInput('baseUrl', { required: true });
         source = core.getInput('source', { required: true });
-        secret = core.getInput('secret');
         serviceName = core.getInput('serviceName', { required: true });
         serviceImage = core.getInput('serviceImage', { required: true });
     }
@@ -55,9 +55,25 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         core.setFailed(error.message);
         return;
     }
+    if (core.getInput('secret')) {
+        core.debug('Add secret in payload');
+        secret = core.getInput('secret');
+    }
+    if (!!core.getInput('crtFile') ||
+        !!core.getInput('keyFile') ||
+        !!core.getInput('passphrase')) {
+        core.debug('Add client certificate config');
+        httpsAgent = new https_1.default.Agent({
+            cert: core.getInput('crtFile'),
+            key: core.getInput('keyFile'),
+            passphrase: core.getInput('passphrase'),
+            rejectUnauthorized: false
+        });
+    }
     const instanceConfig = {
         baseURL,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        httpsAgent
     };
     const requestData = {
         secret,

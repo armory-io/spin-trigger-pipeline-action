@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import axios from 'axios'
+import https from 'https'
 
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook'
 
@@ -9,20 +10,46 @@ interface SpinnakerResponse {
 }
 
 const run = async (): Promise<void> => {
-  let baseURL, source, secret, serviceName, serviceImage
+  let baseURL,
+    source,
+    serviceName,
+    serviceImage,
+    secret = undefined,
+    httpsAgent = undefined
   try {
     baseURL = core.getInput('baseUrl', {required: true})
     source = core.getInput('source', {required: true})
-    secret = core.getInput('secret')
     serviceName = core.getInput('serviceName', {required: true})
     serviceImage = core.getInput('serviceImage', {required: true})
   } catch (error) {
     core.setFailed(error.message)
     return
   }
+
+  if (core.getInput('secret')) {
+    core.debug('Add secret in payload')
+    secret = core.getInput('secret')
+  }
+
+  if (
+    !!core.getInput('crtFile') ||
+    !!core.getInput('keyFile') ||
+    !!core.getInput('passphrase')
+  ) {
+    core.debug('Add client certificate config')
+
+    httpsAgent = new https.Agent({
+      cert: core.getInput('crtFile'),
+      key: core.getInput('keyFile'),
+      passphrase: core.getInput('passphrase'),
+      rejectUnauthorized: false
+    })
+  }
+
   const instanceConfig = {
     baseURL,
-    headers: {'Content-Type': 'application/json'}
+    headers: {'Content-Type': 'application/json'},
+    httpsAgent
   }
   const requestData = {
     secret,

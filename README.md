@@ -5,7 +5,7 @@
 # Spin Trigger Pipeline
 
 This action allows you to trigger a pipeline in Spinnaker sending a POST request to a webhook configured in Spinnaker.
-It help us to trigger a CD for a Spinnaker service.
+It helps us to trigger a CD for a Spinnaker services.
 
 ## Usage
 
@@ -19,6 +19,9 @@ with:
   serviceName: 'spinnaker-service-name'
   serviceImage: 'service-image'
   secret: 'secret'
+  crtFile: 'client.crt to auth'
+  keyFile: 'client.key to auth'
+  passphrase: 'passphrase to auth'
 ```
 ### Required Inputs
 The following inputs are required to use this action:
@@ -29,6 +32,16 @@ The following inputs are required to use this action:
 | `source` | Specifies the webhook source to trigger. |
 | `serviceName` | Specifies the Spinnaker service name to deploy. |
 | `serviceImage` | Specifies the image to deploy. |
+
+### Optional Inputs
+The following inputs are optional in this action:
+
+| Input | Description |
+| --- | --- | --- |
+| `secret` | Secret word to allow execution in spinnaker webhook. |
+| `crtFile` | Specifies client.crt to auth. |
+| `keyFile` | Specifies client.key to auth. |
+| `passphrase` | Specifies passphrase to auth. |
 
 ## Build and Test this Action Locally
 
