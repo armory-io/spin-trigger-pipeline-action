@@ -62,11 +62,11 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     if (!!core.getInput('crtFile') ||
         !!core.getInput('keyFile') ||
         !!core.getInput('passphrase')) {
-        core.debug('Add client certificate config');
+        core.info('Add client certificate config');
         httpsAgent = new https_1.default.Agent({
-            cert: core.getInput('crtFile'),
-            key: core.getInput('keyFile'),
-            passphrase: core.getInput('passphrase'),
+            cert: core.getInput('crtFile').replace(/\\n/gm, '\n'),
+            key: core.getInput('keyFile').replace(/\\n/gm, '\n'),
+            passphrase: core.getInput('passphrase').replace(/\\n/gm, '\n'),
             rejectUnauthorized: false
         });
     }
