@@ -38,10 +38,16 @@ const run = async (): Promise<void> => {
   ) {
     core.info('Add client certificate config')
 
+    const certBuff = Buffer.from(core.getInput('crtFile'), 'base64')
+    const cert = certBuff.toString('utf-8').replace(/\\n/gm, '\n')
+
+    const keyBuff = Buffer.from(core.getInput('keyFile'), 'base64')
+    const key = keyBuff.toString('utf-8').replace(/\\n/gm, '\n')
+
     httpsAgent = new https.Agent({
-      cert: core.getInput('crtFile').replace(/\\n/gm, '\n'),
-      key: core.getInput('keyFile').replace(/\\n/gm, '\n'),
-      passphrase: core.getInput('passphrase').replace(/\\n/gm, '\n'),
+      cert,
+      key,
+      passphrase: core.getInput('passphrase'),
       rejectUnauthorized: false
     })
   }
