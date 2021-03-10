@@ -36,7 +36,7 @@ const run = async (): Promise<void> => {
     !!core.getInput('keyFile') ||
     !!core.getInput('passphrase')
   ) {
-    core.debug('Add client certificate config')
+    core.info('Add client certificate config')
 
     httpsAgent = new https.Agent({
       cert: core.getInput('crtFile').replace(/\\n/gm, '\n'),
