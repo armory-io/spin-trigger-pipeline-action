@@ -44,12 +44,12 @@ const axios_1 = __importDefault(__webpack_require__(6545));
 const https_1 = __importDefault(__webpack_require__(7211));
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook';
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    let baseURL, source, serviceName, serviceImage, secret = undefined, httpsAgent = undefined;
+    let baseURL, source, serviceName, tag, secret = undefined, httpsAgent = undefined;
     try {
         baseURL = core.getInput('baseUrl', { required: true });
         source = core.getInput('source', { required: true });
         serviceName = core.getInput('serviceName', { required: true });
-        serviceImage = core.getInput('serviceImage', { required: true });
+        tag = core.getInput('tag', { required: true });
     }
     catch (error) {
         core.setFailed(error.message);
@@ -79,7 +79,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         secret,
         parameters: {
             serviceName,
-            serviceImage
+            tag
         }
     };
     const instance = axios_1.default.create(instanceConfig);

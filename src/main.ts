@@ -13,14 +13,14 @@ const run = async (): Promise<void> => {
   let baseURL,
     source,
     serviceName,
-    serviceImage,
+    tag,
     secret = undefined,
     httpsAgent = undefined
   try {
     baseURL = core.getInput('baseUrl', {required: true})
     source = core.getInput('source', {required: true})
     serviceName = core.getInput('serviceName', {required: true})
-    serviceImage = core.getInput('serviceImage', {required: true})
+    tag = core.getInput('tag', {required: true})
   } catch (error) {
     core.setFailed(error.message)
     return
@@ -55,7 +55,7 @@ const run = async (): Promise<void> => {
     secret,
     parameters: {
       serviceName,
-      serviceImage
+      tag
     }
   }
 

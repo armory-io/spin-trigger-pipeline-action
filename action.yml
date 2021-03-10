@@ -14,9 +14,9 @@ inputs:
   serviceName:
     required: true
     description: 'service name to deploy'
-  serviceImage:
+  tag:
     required: true
-    description: 'image to deploy'
+    description: 'tag to deploy'
   secret:
     required: false
     description: 'secret to allow trigger in spinnaker'

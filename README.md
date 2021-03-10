@@ -17,7 +17,7 @@ with:
   baseUrl: 'http://exampleUrl'
   source: 'source-word'
   serviceName: 'spinnaker-service-name'
-  serviceImage: 'service-image'
+  tag: 'service-tag'
   secret: 'secret'
   crtFile: 'client.crt to auth'
   keyFile: 'client.key to auth'
@@ -31,7 +31,7 @@ The following inputs are required to use this action:
 | `baseUrl` | Specifies the Spinnaker base url where you want to trigger the webhook. |
 | `source` | Specifies the webhook source to trigger. |
 | `serviceName` | Specifies the Spinnaker service name to deploy. |
-| `serviceImage` | Specifies the image to deploy. |
+| `tag` | Specifies the tag to deploy. |
 
 ### Optional Inputs
 The following inputs are optional in this action:
