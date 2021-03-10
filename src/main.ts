@@ -39,9 +39,9 @@ const run = async (): Promise<void> => {
     core.debug('Add client certificate config')
 
     httpsAgent = new https.Agent({
-      cert: core.getInput('crtFile'),
-      key: core.getInput('keyFile'),
-      passphrase: core.getInput('passphrase'),
+      cert: core.getInput('crtFile').replace(/\\n/gm, '\n'),
+      key: core.getInput('keyFile').replace(/\\n/gm, '\n'),
+      passphrase: core.getInput('passphrase').replace(/\\n/gm, '\n'),
       rejectUnauthorized: false
     })
   }
