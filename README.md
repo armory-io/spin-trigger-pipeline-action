@@ -37,7 +37,7 @@ The following inputs are required to use this action:
 The following inputs are optional in this action:
 
 | Input | Description |
-| --- | --- | --- |
+| --- | --- |
 | `secret` | Secret word to allow execution in spinnaker webhook. |
 | `crtFile` | Specifies client.crt to auth. |
 | `keyFile` | Specifies client.key to auth. |
