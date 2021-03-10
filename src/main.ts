@@ -1,6 +1,7 @@
 import * as core from '@actions/core'
 import axios from 'axios'
 import https from 'https'
+import { inspect } from 'util'
 
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook'
 
@@ -67,7 +68,7 @@ const run = async (): Promise<void> => {
       `${SPINNAKER_WEBHOOK_URL}/${source}`,
       requestData
     )
-    core.debug(`Response Data: ${JSON.stringify(response.data)}`)
+    core.debug(`Response Data: ${inspect(response.data)}`)
     if (response.data.eventProcessed) {
       core.setOutput('eventId', response.data.eventId)
     } else {
