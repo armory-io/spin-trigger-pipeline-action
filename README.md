@@ -12,16 +12,16 @@ It helps us to trigger a CD for a Spinnaker services.
 Add the following entry to your Github workflow YAML file with the required inputs: 
 
 ```yaml
-uses: armory-io/spin-trigger-pipeline-action@v1
+uses: armory-io/spin-trigger-pipeline-action@master
 with:
   baseUrl: 'http://exampleUrl'
   source: 'source-word'
   serviceName: 'spinnaker-service-name'
   tag: 'service-tag'
   secret: 'secret'
-  crtFile: 'client.crt to auth'
-  keyFile: 'client.key to auth'
-  passphrase: 'passphrase to auth'
+  crtFile: 'SGVsbG8sIFdvcmxkIQ=='
+  keyFile: 'SGVsbG8sIFdvcmxkIQ=='
+  passphrase: 'passphrase'
 ```
 ### Required Inputs
 The following inputs are required to use this action:
@@ -39,8 +39,8 @@ The following inputs are optional in this action:
 | Input | Description |
 | --- | --- |
 | `secret` | Secret word to allow execution in spinnaker webhook. |
-| `crtFile` | Specifies client.crt to auth. |
-| `keyFile` | Specifies client.key to auth. |
+| `crtFile` | Specifies client.crt in base64. |
+| `keyFile` | Specifies client.key in base64. |
 | `passphrase` | Specifies passphrase to auth. |
 
 ## Build and Test this Action Locally
