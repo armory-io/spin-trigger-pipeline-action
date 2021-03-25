@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(2186));
 const axios_1 = __importDefault(__webpack_require__(6545));
 const https_1 = __importDefault(__webpack_require__(7211));
-const constants_1 = __importDefault(__webpack_require__(7619));
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook';
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
     let baseURL, source, serviceName, tag, secret = undefined, httpsAgent = undefined;
@@ -79,8 +78,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             cert,
             key,
             passphrase: core.getInput('passphrase'),
-            rejectUnauthorized: false,
-            secureOptions: constants_1.default.SSL_OP_NO_SSLv3
+            rejectUnauthorized: false
         });
     }
     const instanceConfig = {
@@ -4291,14 +4289,6 @@ module.exports = JSON.parse("{\"_args\":[[\"axios@0.21.1\",\"/Users/edgarulg/arm
 
 "use strict";
 module.exports = require("assert");;
-
-/***/ }),
-
-/***/ 7619:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("constants");;
 
 /***/ }),
 

@@ -1,7 +1,6 @@
 import * as core from '@actions/core'
 import axios from 'axios'
 import https from 'https'
-import constants from 'constants'
 
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook'
 
@@ -56,8 +55,7 @@ const run = async (): Promise<void> => {
       cert,
       key,
       passphrase: core.getInput('passphrase'),
-      rejectUnauthorized: false,
-      secureOptions: constants.SSL_OP_NO_SSLv3
+      rejectUnauthorized: false
     })
   }
 
