@@ -57,7 +57,7 @@ const run = async (): Promise<void> => {
       key,
       passphrase: core.getInput('passphrase'),
       rejectUnauthorized: false,
-      secureOptions: constants.SSL_OP_NO_TLSv1_2
+      secureOptions: constants.SSL_OP_NO_SSLv3
     })
   }
 
