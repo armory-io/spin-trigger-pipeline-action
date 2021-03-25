@@ -80,7 +80,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             key,
             passphrase: core.getInput('passphrase'),
             rejectUnauthorized: false,
-            secureOptions: constants_1.default.SSL_OP_NO_TLSv1_2
+            secureOptions: constants_1.default.SSL_OP_NO_SSLv3
         });
     }
     const instanceConfig = {
