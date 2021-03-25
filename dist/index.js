@@ -63,10 +63,17 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         !!core.getInput('keyFile') ||
         !!core.getInput('passphrase')) {
         core.info('Add client certificate config');
-        const certBuff = Buffer.from(core.getInput('crtFile'), 'base64');
-        const cert = certBuff.toString('utf-8').replace(/\\n/gm, '\n');
-        const keyBuff = Buffer.from(core.getInput('keyFile'), 'base64');
-        const key = keyBuff.toString('utf-8').replace(/\\n/gm, '\n');
+        let cert, key;
+        if (core.getInput('isEncoded')) {
+            const certBuff = Buffer.from(core.getInput('crtFile'), 'base64');
+            cert = certBuff.toString('utf-8').replace(/\\n/gm, '\n');
+            const keyBuff = Buffer.from(core.getInput('keyFile'), 'base64');
+            key = keyBuff.toString('utf-8').replace(/\\n/gm, '\n');
+        }
+        else {
+            cert = core.getInput('crtFile').replace(/\\n/gm, '\n');
+            key = core.getInput('keyFile').replace(/\\n/gm, '\n');
+        }
         httpsAgent = new https_1.default.Agent({
             cert,
             key,
