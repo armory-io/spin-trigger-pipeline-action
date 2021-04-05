@@ -14,6 +14,9 @@ inputs:
   serviceName:
     required: true
     description: 'service name to deploy'
+  image:
+    required: true
+    description: 'image to deploy'
   tag:
     required: true
     description: 'tag to deploy'
