@@ -70,8 +70,8 @@ const run = async (): Promise<void> => {
     secret,
     parameters: {
       environment,
-      dinghy_host: dinghyHost,
-      lambda_key: lambdaKey
+      dinghyHost,
+      lambdaKey
     }
   }
 
