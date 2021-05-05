@@ -12,6 +12,7 @@ interface SpinnakerResponse {
 const run = async (): Promise<void> => {
   let baseURL,
     source,
+    environment,
     dinghyHost,
     lambdaKey,
     secret = undefined,
@@ -19,8 +20,9 @@ const run = async (): Promise<void> => {
   try {
     baseURL = core.getInput('baseUrl', {required: true})
     source = core.getInput('source', {required: true})
-    dinghyHost = core.getInput('dinghy_host', {required: true})
-    lambdaKey = core.getInput('lambda_key', {required: true})
+    environment = core.getInput('environment', {required: true})
+    dinghyHost = core.getInput('dinghyHost', {required: true})
+    lambdaKey = core.getInput('lambdaKey', {required: true})
   } catch (error) {
     core.setFailed(error.message)
     return
@@ -67,6 +69,7 @@ const run = async (): Promise<void> => {
   const requestData = {
     secret,
     parameters: {
+      environment,
       dinghyHost,
       lambdaKey
     }
