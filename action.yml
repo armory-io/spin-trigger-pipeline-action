@@ -14,10 +14,10 @@ inputs:
   environment:
     required: true
     description: 'environment to deploy'
-  dinghy_host:
+  dinghyHost:
     required: true
     description: 'Dinghy hostname'
-  lambda_key:
+  lambdaKey:
     required: true
     description: 'Lambda key'
   secret:
