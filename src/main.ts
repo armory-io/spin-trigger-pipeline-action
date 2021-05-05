@@ -13,16 +13,16 @@ const run = async (): Promise<void> => {
   let baseURL,
     source,
     serviceName,
-    image,
-    tag,
+    dinghyHost,
+    lambdaKey,
     secret = undefined,
     httpsAgent = undefined
   try {
     baseURL = core.getInput('baseUrl', {required: true})
     source = core.getInput('source', {required: true})
     serviceName = core.getInput('serviceName', {required: true})
-    image = core.getInput('image', {required: true})
-    tag = core.getInput('tag', {required: true})
+    dinghyHost = core.getInput('dinghy_host', {required: true})
+    lambdaKey = core.getInput('lambda_key', {required: true})
   } catch (error) {
     core.setFailed(error.message)
     return
@@ -70,8 +70,8 @@ const run = async (): Promise<void> => {
     secret,
     parameters: {
       serviceName,
-      image,
-      tag
+      dinghyHost,
+      lambdaKey
     }
   }
 

@@ -1,5 +1,5 @@
 name: 'spin trigger pipeline'
-description: 'This action sends a POST request to a configured webhook in spinnaker for CD services'
+description: 'This action sends a POST request to a configured webhook in spinnaker for Dinghy'
 author: 'armory-io'
 branding:
   icon: 'arrow-right-circle'
@@ -14,12 +14,15 @@ inputs:
   serviceName:
     required: true
     description: 'service name to deploy'
-  image:
+  environment:
     required: true
-    description: 'image to deploy'
-  tag:
+    description: 'environment to deploy'
+  dinghy_host:
     required: true
-    description: 'tag to deploy'
+    description: 'Dinghy hostname'
+  lambda_key:
+    required: true
+    description: 'Lambda key'
   secret:
     required: false
     description: 'secret to allow trigger in spinnaker'
