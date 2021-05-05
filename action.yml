@@ -11,9 +11,6 @@ inputs:
   source:
     required: true
     description: 'webhook source to trigger pipeline in spinnaker'
-  serviceName:
-    required: true
-    description: 'service name to deploy'
   environment:
     required: true
     description: 'environment to deploy'
