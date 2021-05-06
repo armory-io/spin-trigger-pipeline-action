@@ -44,12 +44,13 @@ const axios_1 = __importDefault(__webpack_require__(6545));
 const https_1 = __importDefault(__webpack_require__(7211));
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook';
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    let baseURL, source, environment, dinghyHost, lambdaKey, secret = undefined, httpsAgent = undefined;
+    let baseURL, source, environment, dinghyHost, bucketName, lambdaKey, secret = undefined, httpsAgent = undefined;
     try {
         baseURL = core.getInput('baseUrl', { required: true });
         source = core.getInput('source', { required: true });
         environment = core.getInput('environment', { required: true });
         dinghyHost = core.getInput('dinghyHost', { required: true });
+        bucketName = core.getInput('bucketName', { required: true });
         lambdaKey = core.getInput('lambdaKey', { required: true });
     }
     catch (error) {
@@ -92,6 +93,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         parameters: {
             environment,
             dinghyHost,
+            bucketName,
             lambdaKey
         }
     };

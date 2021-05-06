@@ -17,6 +17,9 @@ inputs:
   dinghyHost:
     required: true
     description: 'Dinghy hostname'
+  bucketName:
+    required: true
+    description: 'bucket name'
   lambdaKey:
     required: true
     description: 'Lambda key'

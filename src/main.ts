@@ -14,6 +14,7 @@ const run = async (): Promise<void> => {
     source,
     environment,
     dinghyHost,
+    bucketName,
     lambdaKey,
     secret = undefined,
     httpsAgent = undefined
@@ -22,6 +23,7 @@ const run = async (): Promise<void> => {
     source = core.getInput('source', {required: true})
     environment = core.getInput('environment', {required: true})
     dinghyHost = core.getInput('dinghyHost', {required: true})
+    bucketName = core.getInput('bucketName', {required: true})
     lambdaKey = core.getInput('lambdaKey', {required: true})
   } catch (error) {
     core.setFailed(error.message)
@@ -71,6 +73,7 @@ const run = async (): Promise<void> => {
     parameters: {
       environment,
       dinghyHost,
+      bucketName,
       lambdaKey
     }
   }
