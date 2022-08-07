@@ -39,31 +39,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.constructParameters = void 0;
 const core = __importStar(__webpack_require__(2186));
 const axios_1 = __importDefault(__webpack_require__(6545));
 const https_1 = __importDefault(__webpack_require__(7211));
 const SPINNAKER_WEBHOOK_URL = '/webhooks/webhook';
 const run = () => __awaiter(void 0, void 0, void 0, function* () {
-    let baseURL, source, serviceName, image, tag, secret = undefined, httpsAgent = undefined;
+    let baseURL, source, parameters, httpsAgent = undefined;
     try {
         baseURL = core.getInput('baseUrl', { required: true });
         source = core.getInput('source', { required: true });
-        serviceName = core.getInput('serviceName', { required: true });
-        image = core.getInput('image', { required: true });
-        tag = core.getInput('tag', { required: true });
+        parameters = core.getInput('parameters');
     }
     catch (error) {
         core.setFailed(error.message);
         return;
     }
-    if (core.getInput('secret')) {
-        core.debug('Add secret in payload');
-        secret = core.getInput('secret');
-    }
     if (!!core.getInput('crtFile') ||
         !!core.getInput('keyFile') ||
         !!core.getInput('passphrase')) {
-        core.info('Add client certificate config');
+        core.info('Adding client certificate config');
         let cert, key;
         if (core.getInput('isEncoded')) {
             const certBuff = Buffer.from(core.getInput('crtFile'), 'base64');
@@ -87,14 +82,8 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         headers: { 'Content-Type': 'application/json' },
         httpsAgent
     };
-    const requestData = {
-        secret,
-        parameters: {
-            serviceName,
-            image,
-            tag
-        }
-    };
+    //TODO: We need to validate format of input before construct parameters
+    const requestData = constructParameters(parameters);
     const instance = axios_1.default.create(instanceConfig);
     try {
         core.debug(`Request Data: ${JSON.stringify(requestData)}`);
@@ -116,6 +105,17 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         }
     }
 });
+function constructParameters(rawParameters) {
+    const parametersAsJson = rawParameters.split(',').reduce(function (acc, cur) {
+        const key = cur.substring(0, cur.indexOf(':'));
+        const value = cur.substring(cur.indexOf(':') + 1, cur.length);
+        return Object.assign(Object.assign({}, acc), { [key]: value });
+    }, {});
+    return {
+        parameters: Object.assign({}, parametersAsJson)
+    };
+}
+exports.constructParameters = constructParameters;
 run();
 
 

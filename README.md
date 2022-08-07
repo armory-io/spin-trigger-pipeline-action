@@ -4,8 +4,7 @@
 
 # Spin Trigger Pipeline
 
-This action allows you to trigger a pipeline in Spinnaker sending a POST request to a webhook configured in Spinnaker.
-It helps us to trigger a CD for a Spinnaker services.
+This action allows you to trigger a pipeline in Spinnaker sending a POST request to a webhook configured in Spinnaker and pass parameters to the pipeline context. It lso support Cert auth for restricted environments.
 
 ## Usage
 
@@ -16,10 +15,7 @@ uses: armory-io/spin-trigger-pipeline-action@master
 with:
   baseUrl: 'http://exampleUrl'
   source: 'source-word'
-  serviceName: 'spinnaker-service-name'
-  image: 'image-repository'
-  tag: 'service-tag'
-  secret: 'secret'
+  parameters: 'param1:value1,param2:value2'
   crtFile: 'SGVsbG8sIFdvcmxkIQ=='
   keyFile: 'SGVsbG8sIFdvcmxkIQ=='
   passphrase: 'passphrase'
@@ -32,16 +28,13 @@ The following inputs are required to use this action:
 | --- | --- |
 | `baseUrl` | Specifies the Spinnaker base url where you want to trigger the webhook. |
 | `source` | Specifies the webhook source to trigger. |
-| `serviceName` | Specifies the Spinnaker service name to deploy. |
-| `image` | Specifies the image to deploy. |
-| `tag` | Specifies the tag to deploy. |
 
 ### Optional Inputs
 The following inputs are optional in this action:
 
 | Input | Description |
 | --- | --- |
-| `secret` | Secret word to allow execution in spinnaker webhook. |
+| `parameters` | Comma separated key value pairs representing parameters that would be included in the pipeline context of Spinnaker |
 | `crtFile` | Specifies client.crt in base64. |
 | `keyFile` | Specifies client.key in base64. |
 | `passphrase` | Specifies passphrase to auth. |

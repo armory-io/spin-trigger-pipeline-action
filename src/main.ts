@@ -12,25 +12,15 @@ interface SpinnakerResponse {
 const run = async (): Promise<void> => {
   let baseURL,
     source,
-    serviceName,
-    image,
-    tag,
-    secret = undefined,
+    parameters,
     httpsAgent = undefined
   try {
     baseURL = core.getInput('baseUrl', {required: true})
     source = core.getInput('source', {required: true})
-    serviceName = core.getInput('serviceName', {required: true})
-    image = core.getInput('image', {required: true})
-    tag = core.getInput('tag', {required: true})
+    parameters = core.getInput('parameters')
   } catch (error) {
     core.setFailed(error.message)
     return
-  }
-
-  if (core.getInput('secret')) {
-    core.debug('Add secret in payload')
-    secret = core.getInput('secret')
   }
 
   if (
@@ -38,7 +28,7 @@ const run = async (): Promise<void> => {
     !!core.getInput('keyFile') ||
     !!core.getInput('passphrase')
   ) {
-    core.info('Add client certificate config')
+    core.info('Adding client certificate config')
 
     let cert, key
 
@@ -66,15 +56,8 @@ const run = async (): Promise<void> => {
     headers: {'Content-Type': 'application/json'},
     httpsAgent
   }
-  const requestData = {
-    secret,
-    parameters: {
-      serviceName,
-      image,
-      tag
-    }
-  }
-
+  //TODO: We need to validate format of input before construct parameters
+  const requestData = constructParameters(parameters)
   const instance = axios.create(instanceConfig)
 
   try {
@@ -98,6 +81,23 @@ const run = async (): Promise<void> => {
       )
     } else {
       core.setFailed(`got error from Spinnaker, error: ${error.message}`)
+    }
+  }
+}
+
+export interface Parameters {
+  parameters: object
+}
+
+export function constructParameters(rawParameters: string): Parameters {
+  const parametersAsJson = rawParameters.split(',').reduce(function (acc, cur) {
+    const key = cur.substring(0, cur.indexOf(':'))
+    const value = cur.substring(cur.indexOf(':') + 1, cur.length)
+    return {...acc, [key]: value}
+  }, {})
+  return {
+    parameters: {
+      ...parametersAsJson
     }
   }
 }
